@@ -108,22 +108,28 @@
                     margin-left: 15%;
                 }
             }
-            /*body {
-                background: url("/static/background.jpg") no-repeat fixed;
-                height: 50vh;
-                width: 100%;
+            .coat {
+                background-image: url("{% static 'images/0-7774_download-beautiful-nature-wallpaper-hd-beautiful-nature-hd.jpg' %}");
+                background-repeat:no-repeat;
                 background-size: cover;
-            }*/
+            }
+            
+            .card {
+                box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
+            }
+                
+         
         </style>
     </head>
 
-    <body style="background-image: url(" /static/background.jpg ") no-repeat fixed;height: 10vh; width:100%; background-size:cover; ">
+    <body>
 
 
+       
         <div class="container-scroller ">
             <div class="container-fluid page-body-wrapper full-page-wrapper ">
-                <div class="content-wrapper d-flex align-items-center auth px-0 ">
-                    <div class="row w-100 mx-0 ">
+                <div class="content-wrapper d-flex align-items-center auth px-0 coat ">
+                    <div class="row w-100 mx-0  ">
                         <div class="col-12 col-md-6 col-lg-4 mx-auto ">
                             <div class="auth-form-light text-left py-5 px-4 ">
                                 <div class="brand-logo ">
@@ -145,37 +151,37 @@
                                 </div>
                                 <h4>Hello! let's get started</h4>
                                 <h6 class="font-weight-light ">Sign in to continue.</h6>
-                                <form class="pt-3 " action="admin_login" method="post">
+                                <form class="pt-3" action="admin_login" method="post">
                                     {% csrf_token %}
-                                    <div class="form-group ">
-                                        <input type="text " class="form-control form-control-lg " id="exampleInputEmail1 " name="username" placeholder="Username ">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" name="username" placeholder="Username" autocomplete=off>
                                     </div>
-                                    <div class="form-group ">
-                                        <input type="password " class="form-control form-control-lg " id="exampleInputPassword1 " name="password" placeholder="Password ">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" name="password" placeholder="Password" autocomplete=off>
                                     </div>
-                                    <div class="mt-3 ">
+                                    <div class="mt-3">
 
-                                        <button type="submit " class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn ">
+                                        <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
                                        SIGN IN
                                       </button>
                                     </div>
                                 </form>
-                                <div class="my-2 d-flex justify-content-between align-items-center ">
-                                    <div class="form-check ">
-                                        <label class="form-check-label text-muted ">
-                                            <input type="checkbox " class="form-check-input ">
+                                <div class="my-2 d-flex justify-content-between align-items-center">
+                                    <div class="form-check">
+                                        <label class="form-check-label text-muted">
+                                            <input type="checkbox" class="form-check-input">
                                             Keep me signed in
                                         </label>
                                     </div>
-                                    <a href="# " class="auth-link text-black ">Forgot password?</a>
+                                    <a href="#" class="auth-link text-black">Forgot password?</a>
                                 </div>
-                                <div class="mb-2 ">
-                                    <button type="button " class="btn btn-block btn-facebook auth-form-btn ">
+                                <div class="mb-2">
+                                    <button type="button" class="btn btn-block btn-facebook auth-form-btn ">
                                         <i class="ti-facebook mr-2 "></i>Connect using facebook
                                     </button>
                                 </div>
-                                <div class="text-center mt-4 font-weight-light ">
-                                    Don't have an account? <a href="register.html" class="text-primary ">Create</a>
+                                <div class="text-center mt-4 font-weight-light">
+                                    Don't have an account? <a href="register.html" class="text-primary">Create</a>
                                 </div>
 
                             </div>
