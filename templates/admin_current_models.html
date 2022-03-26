@@ -1,0 +1,121 @@
+{%extends 'admin_base.html'%} {%load static%} {%block body%}
+<style>
+    .card {
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.26);
+    }
+</style>
+<div class="container-fluid">
+
+    <h2>
+        <center>Current Models</center>
+    </h2>
+    <br><br>
+    <div class="row" style="margin-top: -16px">
+        <div><br></div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12"><br></div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" style="color:rgb(0, 0, 0);">
+                </div>
+            </form>
+        </div>
+    </div>
+    {% for i in category %}
+
+    <h3>{{i.category_name}}</h3>
+
+
+    <div class="row justify-content-center">
+
+
+        {% for j in item%} {% if i.cat_id == j.cat_id_id %}
+
+
+
+        <div class="card m-5 " style="box-shadow:2px 2px solid black">
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-md-12 ">
+
+                        <img src="media/{{j.gib}}" style="height: 150px ;width: 150px;" alt="">
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12 ">
+
+                        <label>
+                    <span style="font-family: Segoe UI; font-weight: 400; font-size: 19px; padding-left: 10px; padding-top: 10px; color: black;">{{j.modelname}}</span>
+                </label>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12 ">
+
+                        <label>
+                    <span style="font-family: Segoe UI; font-weight: 400; font-size: 19px; padding-left: 10px; padding-top: 10px; color: black;">{{j.price}}</span>
+                </label>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 col-sm-6 col-6">
+
+
+                        <button type="button" class="btn btn-outline-danger">
+                                <a style="text-decoration:none ; color:white" href="model_delete/{{j.id}}"></a>
+                                <i class="icon-trash menu-icon"></i>
+                              Delete
+                            </a>
+                            </button>
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-6">
+                        <a href="adminedit/{{j.id}}">
+                            <button type="button" class="btn btn-outline-warning">
+                                <i class="mdi mdi-grease-pencil"></i>
+                              edit
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        {% endif %} {% endfor %}
+    </div>
+
+    {% endfor %}
+</div>
+
+<script>
+    function myFunction() {
+        var input, filter, label, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        label = document.getElementById("myTable");
+        tr = label.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+
+
+
+{% endblock %}
