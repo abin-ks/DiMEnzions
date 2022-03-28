@@ -26,41 +26,63 @@ def admin_login(request):
     # except:
     #     return redirect('admin_log')
     
+def logout(request):
+    if 'admid' in request.session:
+        request.session.flush()
+        return redirect('/')
+    else:
+        return redirect('/')
+    
 def admin_dashboard(request):
-    admid = request.session['admid']
-    adm = Admin_register.objects.filter(reg_id=admid)
-    return render(request, 'admin_dashboard.html', {'adm':adm})
+    if 'admid' in request.session:
+        admid = request.session['admid']
+        adm = Admin_register.objects.filter(reg_id=admid)
+        
+        return render(request, 'admin_dashboard.html', {'adm':adm})
+    else:
+        return redirect('/')
 
 
 def show_category(request):
-    
-    caty = categories.objects.all()
-    return render(request,'categories.html',{'caty': caty})
+    if 'admid' in request.session:
+        admid = request.session['admid']
+        caty = categories.objects.all()
+        return render(request,'categories.html',{'caty': caty})
+    else:
+        return redirect('/')
 def add_category(request):
     try:
+        if 'admid' in request.session:
+            admid = request.session['admid']
         
-        if request.method=='POST':
-            category_name=request.POST['category_name']
-            category_logo=request.FILES['category_logo']
-            sub_category1=request.POST['sub_category1']
-            sub_category2=request.POST['sub_category2']
-            sub_category3=request.POST['sub_category3']
-            sub_category4=request.POST['sub_category4']
-            sub_category5=request.POST['sub_category5']
-            
-            cat=categories(category_name=category_name,category_logo=category_logo,sub_category1=sub_category1,sub_category2=sub_category2,sub_category3=sub_category3,sub_category4=sub_category4,sub_category5=sub_category5)
-            cat.save()
+            if request.method=='POST':
+                category_name=request.POST['category_name']
+                category_logo=request.FILES['category_logo']
+                sub_category1=request.POST['sub_category1']
+                sub_category2=request.POST['sub_category2']
+                sub_category3=request.POST['sub_category3']
+                sub_category4=request.POST['sub_category4']
+                sub_category5=request.POST['sub_category5']
+                
+                cat=categories(category_name=category_name,category_logo=category_logo,sub_category1=sub_category1,sub_category2=sub_category2,sub_category3=sub_category3,sub_category4=sub_category4,sub_category5=sub_category5)
+                cat.save()
 
-            return redirect('category')
+                return redirect('category')
+            else:
+                return redirect('categories')
         else:
-            return redirect('categories')
+            return redirect('/')
     except:
         return redirect('categories')
-def cat_delete(request,cat_id):
     
-    emp=categories.objects.get(cat_id=cat_id)
-    emp.delete()
-    return redirect('category')
+def cat_delete(request,cat_id):
+    if 'admid' in request.session:
+        admid = request.session['admid']
+        emp=categories.objects.get(cat_id=cat_id)
+        emp.delete()
+        return redirect('category')
+    else:
+        return redirect('/')
 
 
 def admin_models(request):
@@ -123,13 +145,20 @@ def delete(request, reg_id):
 
 
 def adminedit(request,id):
-    item=items.objects.filter(id=id)
-    viva = categories.objects.all()
-    return render(request,"adminedit.html",{'item':item,'viva':viva})
+    if request.session['admid'] == "":
+        return redirect('admin_log')
+    else:
+        admid = request.session['admid']
+        item=items.objects.filter(id=id)
+        viva = categories.objects.all()
+        return render(request,"adminedit.html",{'item':item,'viva':viva})
 
 
 def modeledit(request,id):
-    if request.method == 'POST':
+    if request.session['admid'] == "":
+        return redirect('admin_log')
+    else:
+        admid = request.session['admid']
         item=items.objects.get(id=id)
         item.modelname=request.POST.get('modelname',item.modelname)
         item.description=request.POST.get('description',item.description)
@@ -138,11 +167,11 @@ def modeledit(request,id):
         item.types=request.POST.get('types',item.types)
         item.format=request.POST.get('format',item.format)
         item.modeltype=request.POST.get('modeltype',item.modeltype)
-        item.cat_id_id=request.POST.get('category_name',item.category_name)
+        item.cat_id_id=request.POST.get('category_name',item.cat_id_id)
         item.fbx=request.FILES.get('fbx',item.fbx)
-    
+        
         item.save()
-        return render(request, 'adminedit.html',{'item':item})
+        return redirect('admin_current_models')
 
 
 
